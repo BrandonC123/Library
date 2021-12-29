@@ -14,18 +14,22 @@ function displayBooks(library) {
     const cards = document.createElement("div");
     cards.classList.add("cards");
     for (let i = 0; i < library.length; i++) {
-        const card = document.createElement("div");
+        let card = document.createElement("div");
+        card = cardCreater(library[i], card);
         card.classList.add("card");
-        card.textContent = cardCreater(library[i]);
         cards.appendChild(card);
     }
     cardCont.appendChild(cards);
 }
 
-function cardCreater(book) {
-    return (
-        book.title + "\n" + book.author + "\n" + book.pages + "\n" + book.read
-    );
+function cardCreater(book, card) {
+    for(let prop in book) {
+        const text = document.createElement('div');
+        text.textContent = book[prop];
+        text.classList.add('card-text');
+        card.appendChild(text);
+    }
+    return card;
 }
 
 const b1 = new Book("t", "bar", "123", false);
