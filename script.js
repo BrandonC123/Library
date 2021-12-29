@@ -7,20 +7,22 @@ function Book(title, author, pages, read) {
     this.read = read;
 }
 
+const cardCont = document.querySelector("#card-cont");
+const cards = document.createElement("div");
+
 function addBookToLibrary(book) {
     myLibrary.push(book);
-    displayBooks(myLibrary);
+    let card = document.createElement("div");
+    // card = cardCreater(book, card);
+    cardCont.appendChild(cardCreater(book, card));
 }
 
 function displayBooks(library) {
     if (myLibrary.length >= 1) {
-        const cardCont = document.querySelector("#card-cont");
-        const cards = document.createElement("div");
         cards.classList.add("cards");
         for (let i = 0; i < library.length; i++) {
             let card = document.createElement("div");
             card = cardCreater(library[i], card);
-            card.classList.add("card");
             cards.appendChild(card);
         }
         cardCont.appendChild(cards);
@@ -34,6 +36,13 @@ function cardCreater(book, card) {
         text.classList.add("card-text");
         card.appendChild(text);
     }
+    const removeBtn = document.createElement("button");
+    const readBtn = document.createElement("button");
+    removeBtn.textContent = "X";
+    readBtn.textContent = "Read Status"
+    card.appendChild(removeBtn);
+    card.appendChild(readBtn);
+    card.classList.add("card");
     return card;
 }
 
@@ -44,6 +53,7 @@ function openForm() {
 }
 
 function closeForm() {
+    (form.elements[0]).value = '';
     document.getElementById("form").style.display = "none";
 }
 
@@ -52,25 +62,17 @@ addBtn.addEventListener("click", () => {
     openForm();
 });
 
+const cancelBtn = document.querySelector("#cancel");
+cancelBtn.addEventListener("click", () => {
+    closeForm();
+});
+
 const submitBtn = document.querySelector("#submit");
 submitBtn.addEventListener("click", () => {
-    console.log((form.elements[0]).value);
-    console.log((form.elements[1]).value);
-    console.log((form.elements[2]).value);
-    console.log((form.elements[3]).value);
     const newBook = new Book((form.elements[0]).value, (form.elements[1]).value, 
     (form.elements[2]).value, (form.elements[3]).value);
     addBookToLibrary(newBook);
     closeForm();
 });
-
-// const b1 = new Book("t", "bar", "123", false);
-// myLibrary.push(b1);
-
-// const b2 = new Book("t", "bar", "123", false);
-// myLibrary.push(b2);
-
-// const b3 = new Book("t", "bar", "123", false);
-// myLibrary.push(b3);
 
 displayBooks(myLibrary);
