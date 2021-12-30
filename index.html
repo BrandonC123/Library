@@ -9,8 +9,38 @@
     </head>
     <body>
         <div class="overall-container">
-            <div id="title">Library</div>
-            <button id="add">NEW BOOK</button>
+            <div class="add-section">
+                <div id="title">Library</div>
+                <button id="add">NEW BOOK</button>
+                <form id="form">
+                    <ul>
+                        <div class="inputs">
+                            <li>
+                                <label for="title">Title:</label>
+                                <input
+                                    type="text"
+                                    id="book-title"
+                                    name="book-title"
+                                />
+                            </li>
+                            <li>
+                                <label for="Author">Author:</label>
+                                <input type="text" id="author" name="author" />
+                            </li>
+                            <li>
+                                <label for="page">Page Count:</label>
+                                <input type="text" id="page" name="page" />
+                            </li>
+                            <li>
+                                <label for="read">Read Status (T/F):</label>
+                                <input type="text" id="read" name="read" />
+                            </li>
+                        </div>
+                    </ul>
+                    <button type="button" id="submit">Submit</button>
+                    <button type="button" id="cancel">X</button>
+                </form>
+            </div>
             <div id="card-cont"></div>
         </div>
         <script src="script.js"></script>
