@@ -7,25 +7,33 @@ function Book(title, author, pages, read) {
     this.read = read;
 }
 
+add(new Book("t", "t", "1", "F"));
+
+add(new Book("1", "t", "1", "F"));
+
+add(new Book("2", "t", "1", "F"));
+
+add(new Book("3", "t", "1", "F"));
+
 const cardCont = document.querySelector("#card-cont");
-const cards = document.createElement("div");
+
+
+function add (book) {
+    myLibrary.push(book);
+}
 
 function addBookToLibrary(book) {
     myLibrary.push(book);
     let card = document.createElement("div");
-    // card = cardCreater(book, card);
     cardCont.appendChild(cardCreater(book, card));
 }
 
 function displayBooks(library) {
     if (myLibrary.length >= 1) {
-        cards.classList.add("cards");
         for (let i = 0; i < library.length; i++) {
             let card = document.createElement("div");
-            card = cardCreater(library[i], card);
-            cards.appendChild(card);
+            cardCont.appendChild(cardCreater(library[i], card));
         }
-        cardCont.appendChild(cards);
     }
 }
 
@@ -36,13 +44,29 @@ function cardCreater(book, card) {
         text.classList.add("card-text");
         card.appendChild(text);
     }
+    card.setAttribute("data-attribute", myLibrary.length - 1);
+    console.log(card.dataset.attribute);
+    card = addBtns(card);
+    card.classList.add("card");
+    return card;
+}
+
+function addBtns(card) {
     const removeBtn = document.createElement("button");
     const readBtn = document.createElement("button");
     removeBtn.textContent = "X";
-    readBtn.textContent = "Read Status"
-    card.appendChild(removeBtn);
+    removeBtn.setAttribute("id", "remove-btn");
+    readBtn.textContent = "Read Status";
+    readBtn.setAttribute("id", "read-btn");
+    removeBtn.addEventListener("click", () => {
+        cardCont.removeChild(card);
+        myLibrary = myLibrary.splice(card.dataset.attribute, 1);
+    });
+    readBtn.addEventListener("click", () => {
+        readBtn.classList.add("readT");
+    });
     card.appendChild(readBtn);
-    card.classList.add("card");
+    card.appendChild(removeBtn);
     return card;
 }
 
@@ -53,7 +77,10 @@ function openForm() {
 }
 
 function closeForm() {
-    (form.elements[0]).value = '';
+    form.elements[0].value = "";
+    form.elements[1].value = "";
+    form.elements[2].value = "";
+    form.elements[3].value = "";
     document.getElementById("form").style.display = "none";
 }
 
@@ -69,8 +96,12 @@ cancelBtn.addEventListener("click", () => {
 
 const submitBtn = document.querySelector("#submit");
 submitBtn.addEventListener("click", () => {
-    const newBook = new Book((form.elements[0]).value, (form.elements[1]).value, 
-    (form.elements[2]).value, (form.elements[3]).value);
+    const newBook = new Book(
+        form.elements[0].value,
+        form.elements[1].value,
+        form.elements[2].value,
+        form.elements[3].value
+    );
     addBookToLibrary(newBook);
     closeForm();
 });
