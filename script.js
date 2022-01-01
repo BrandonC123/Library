@@ -1,6 +1,7 @@
 let myLibrary = [];
 let cardLib = [];
 let readStatus = false;
+let bookCount = 0;
 
 function Book(title, author, pages, read) {
     this.title = title;
@@ -39,6 +40,8 @@ function displayBooks(library) {
 }
 
 function cardCreater(book, card) {
+    const id = "read-text" + bookCount; 
+    console.log(id);
     if (book.read.toUpperCase() === "T") {
         readStatus = true;
     } else {
@@ -48,7 +51,7 @@ function cardCreater(book, card) {
         const text = document.createElement("div");
         text.textContent = book[prop];
         if (prop == "read") {
-            text.classList.add("read-text");
+            text.setAttribute("id", id);
         }
         text.classList.add("card-text");
         card.appendChild(text);
@@ -57,6 +60,7 @@ function cardCreater(book, card) {
     console.log(card.dataset.attribute);
     card = addBtns(card, book);
     card.classList.add("card");
+    bookCount++;
     return card;
 }
 
@@ -77,10 +81,9 @@ function addBtns(card, book) {
         myLibrary.splice(card.dataset.attribute, 1);
     });
     readBtn.addEventListener("click", () => {
-        const text =
-        document.getElementsByClassName("read-text")[
-            card.dataset.attribute
-        ];
+        const t = "read-text" + card.dataset.attribute;
+        console.log(t);
+        const text = document.getElementById(t);
         if (readBtn.classList.contains("readT")) {
             readBtn.classList.remove("readT");
             readBtn.classList.add("readF");
