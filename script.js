@@ -1,4 +1,5 @@
 let myLibrary = [];
+let readStatus = false;
 
 function Book(title, author, pages, read) {
     this.title = title;
@@ -7,37 +8,39 @@ function Book(title, author, pages, read) {
     this.read = read;
 }
 
-add(new Book("t", "t", "1", "F"));
+const book1 = new Book("t", "t", "1", "F");
 
-add(new Book("1", "t", "1", "F"));
+const book2 = new Book("1", "t", "1", "F");
 
-add(new Book("2", "t", "1", "F"));
+const book3 = new Book("2", "t", "1", "F");
 
-add(new Book("3", "t", "1", "F"));
+const book4 = new Book("3", "t", "1", "F");
 
 const cardCont = document.querySelector("#card-cont");
 
-
-function add (book) {
+function addBookToLibrary(book) {
     myLibrary.push(book);
 }
 
-function addBookToLibrary(book) {
+function addAndDisplay(book) {
     myLibrary.push(book);
     let card = document.createElement("div");
     cardCont.appendChild(cardCreater(book, card));
 }
 
 function displayBooks(library) {
-    if (myLibrary.length >= 1) {
-        for (let i = 0; i < library.length; i++) {
-            let card = document.createElement("div");
-            cardCont.appendChild(cardCreater(library[i], card));
-        }
+    for (let i = 0; i < library.length; i++) {
+        let card = document.createElement("div");
+        cardCont.appendChild(cardCreater(library[i], card));
     }
 }
 
 function cardCreater(book, card) {
+    if ((book.read).toUpperCase() === "T") {
+        readStatus = true; 
+    } else {
+        readStatus = false;
+    }
     for (let prop in book) {
         const text = document.createElement("div");
         text.textContent = book[prop];
@@ -58,12 +61,23 @@ function addBtns(card) {
     removeBtn.setAttribute("id", "remove-btn");
     readBtn.textContent = "Read Status";
     readBtn.setAttribute("id", "read-btn");
+    if (readStatus) {
+        readBtn.classList.add("readT");
+    } else {
+        readBtn.classList.add("readF");
+    }
     removeBtn.addEventListener("click", () => {
         cardCont.removeChild(card);
-        myLibrary = myLibrary.splice(card.dataset.attribute, 1);
+        myLibrary.splice(card.dataset.attribute, 1);
     });
     readBtn.addEventListener("click", () => {
-        readBtn.classList.add("readT");
+        if (readBtn.classList.contains("readT")) {
+            readBtn.classList.remove("readT")
+            readBtn.classList.add("readF");
+        } else {
+            readBtn.classList.remove("readF")
+            readBtn.classList.add("readT");
+        }
     });
     card.appendChild(readBtn);
     card.appendChild(removeBtn);
@@ -102,7 +116,7 @@ submitBtn.addEventListener("click", () => {
         form.elements[2].value,
         form.elements[3].value
     );
-    addBookToLibrary(newBook);
+    addAndDisplay(newBook);
     closeForm();
 });
 
