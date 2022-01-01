@@ -1,4 +1,5 @@
 let myLibrary = [];
+let cardLib = [];
 let readStatus = false;
 
 function Book(title, author, pages, read) {
@@ -25,7 +26,9 @@ function addBookToLibrary(book) {
 function addAndDisplay(book) {
     myLibrary.push(book);
     let card = document.createElement("div");
-    cardCont.appendChild(cardCreater(book, card));
+    card = cardCreater(book, card);
+    cardCont.appendChild(card);
+    cardLib.push(card);
 }
 
 function displayBooks(library) {
@@ -36,25 +39,28 @@ function displayBooks(library) {
 }
 
 function cardCreater(book, card) {
-    if ((book.read).toUpperCase() === "T") {
-        readStatus = true; 
+    if (book.read.toUpperCase() === "T") {
+        readStatus = true;
     } else {
         readStatus = false;
     }
     for (let prop in book) {
         const text = document.createElement("div");
         text.textContent = book[prop];
+        if (prop == "read") {
+            text.classList.add("read-text");
+        }
         text.classList.add("card-text");
         card.appendChild(text);
     }
     card.setAttribute("data-attribute", myLibrary.length - 1);
     console.log(card.dataset.attribute);
-    card = addBtns(card);
+    card = addBtns(card, book);
     card.classList.add("card");
     return card;
 }
 
-function addBtns(card) {
+function addBtns(card, book) {
     const removeBtn = document.createElement("button");
     const readBtn = document.createElement("button");
     removeBtn.textContent = "X";
@@ -71,12 +77,18 @@ function addBtns(card) {
         myLibrary.splice(card.dataset.attribute, 1);
     });
     readBtn.addEventListener("click", () => {
+        const text =
+        document.getElementsByClassName("read-text")[
+            card.dataset.attribute
+        ];
         if (readBtn.classList.contains("readT")) {
-            readBtn.classList.remove("readT")
+            readBtn.classList.remove("readT");
             readBtn.classList.add("readF");
+            text.textContent = "F";
         } else {
-            readBtn.classList.remove("readF")
+            readBtn.classList.remove("readF");
             readBtn.classList.add("readT");
+            text.textContent = "T";
         }
     });
     card.appendChild(readBtn);
