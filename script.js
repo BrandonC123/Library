@@ -6,22 +6,16 @@ let bookCount = 0;
 function Book(title, author, pages, read) {
     this.title = title;
     this.author = author;
-    this.pages = pages;
+    this.pages = `${pages} pages`;
     this.read = read;
 }
 
-const book1 = new Book("t", "t", "1", "F");
+const book1 = new Book("Insert Titleaaaaaaaaaaaaaaaa", "Author", "143", "T");
 
-const book2 = new Book("1", "t", "1", "F");
-
-const book3 = new Book("2", "t", "1", "F");
-
-const book4 = new Book("3", "t", "1", "T");
+const book2 = new Book("Sword Art Online", "Reki Kawahara", "256", "F");
 
 addBookToLibrary(book1);
 addBookToLibrary(book2);
-addBookToLibrary(book3);
-addBookToLibrary(book4);
 
 const cardCont = document.querySelector("#card-cont");
 
@@ -29,7 +23,9 @@ function addBookToLibrary(book) {
     myLibrary.push(book);
 }
 
+//Used for user input
 function addAndDisplay(book) {
+    //Unique identifier for each book
     const identify = "book" + bookCount;
     myLibrary.push(book);
     let card = document.createElement("div");
@@ -46,7 +42,8 @@ function displayBooks(library) {
 }
 
 function cardCreater(book, card, identify) {
-    const id = "read-text" + bookCount; 
+    //Unique id for read-text div
+    const id = "read-text" + bookCount;
     bookIDs.push(identify);
     if (book.read.toUpperCase() === "T") {
         readStatus = true;
@@ -81,10 +78,11 @@ function addBtns(card, id, identify) {
         readBtn.classList.add("readF");
     }
     removeBtn.addEventListener("click", () => {
+        //Maintains a bookIDs array with the unique identifiers
+        //to get the index to slice in myLibrary array.
         cardCont.removeChild(card);
         myLibrary.splice(bookIDs.indexOf(identify), 1);
         bookIDs.splice(bookIDs.indexOf(identify), 1);
-        console.table(myLibrary);
     });
     readBtn.addEventListener("click", () => {
         const text = document.getElementById(id);
