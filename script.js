@@ -1,5 +1,5 @@
 let myLibrary = [];
-let cardLib = [];
+let bookIDs = [];
 let readStatus = false;
 let bookCount = 0;
 
@@ -25,11 +25,12 @@ function addBookToLibrary(book) {
 }
 
 function addAndDisplay(book) {
+    const identify = "book" + bookCount;
+    bookIDs.push(identify);
     myLibrary.push(book);
     let card = document.createElement("div");
-    card = cardCreater(book, card);
+    card = cardCreater(book, card, identify);
     cardCont.appendChild(card);
-    cardLib.push(card);
 }
 
 function displayBooks(library) {
@@ -39,9 +40,8 @@ function displayBooks(library) {
     }
 }
 
-function cardCreater(book, card) {
+function cardCreater(book, card, identify) {
     const id = "read-text" + bookCount; 
-    console.log(id);
     if (book.read.toUpperCase() === "T") {
         readStatus = true;
     } else {
@@ -58,13 +58,13 @@ function cardCreater(book, card) {
     }
     card.setAttribute("data-attribute", myLibrary.length - 1);
     console.log(card.dataset.attribute);
-    card = addBtns(card, book);
+    card = addBtns(card, id, identify);
     card.classList.add("card");
     bookCount++;
     return card;
 }
 
-function addBtns(card, book) {
+function addBtns(card, id, identify) {
     const removeBtn = document.createElement("button");
     const readBtn = document.createElement("button");
     removeBtn.textContent = "X";
@@ -78,12 +78,11 @@ function addBtns(card, book) {
     }
     removeBtn.addEventListener("click", () => {
         cardCont.removeChild(card);
-        myLibrary.splice(card.dataset.attribute, 1);
+        myLibrary.splice(bookIDs.indexOf(identify), 1);
+        bookIDs.splice(bookIDs.indexOf(identify), 1);
     });
     readBtn.addEventListener("click", () => {
-        const t = "read-text" + card.dataset.attribute;
-        console.log(t);
-        const text = document.getElementById(t);
+        const text = document.getElementById(id);
         if (readBtn.classList.contains("readT")) {
             readBtn.classList.remove("readT");
             readBtn.classList.add("readF");
