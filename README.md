@@ -1,7 +1,7 @@
 # Library
 Library project TOP. Adds books to an array from user input. 
 
-Displaying book process (inside code):
+Displaying book process:
     -addBookToLibrary function pushes new book to myLibrary array
     -displayBooks function receives a library array in parameter which it will loop through while creating a unique indentifier each time to be used for deleting. (books in source code)
     -Books entered by user will only use the addAndDisplay function which individually creates a card and appends it.
