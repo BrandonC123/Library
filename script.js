@@ -16,7 +16,12 @@ const book2 = new Book("1", "t", "1", "F");
 
 const book3 = new Book("2", "t", "1", "F");
 
-const book4 = new Book("3", "t", "1", "F");
+const book4 = new Book("3", "t", "1", "T");
+
+addBookToLibrary(book1);
+addBookToLibrary(book2);
+addBookToLibrary(book3);
+addBookToLibrary(book4);
 
 const cardCont = document.querySelector("#card-cont");
 
@@ -26,7 +31,6 @@ function addBookToLibrary(book) {
 
 function addAndDisplay(book) {
     const identify = "book" + bookCount;
-    bookIDs.push(identify);
     myLibrary.push(book);
     let card = document.createElement("div");
     card = cardCreater(book, card, identify);
@@ -35,13 +39,15 @@ function addAndDisplay(book) {
 
 function displayBooks(library) {
     for (let i = 0; i < library.length; i++) {
+        const identify = "book" + bookCount;
         let card = document.createElement("div");
-        cardCont.appendChild(cardCreater(library[i], card));
+        cardCont.appendChild(cardCreater(library[i], card, identify));
     }
 }
 
 function cardCreater(book, card, identify) {
     const id = "read-text" + bookCount; 
+    bookIDs.push(identify);
     if (book.read.toUpperCase() === "T") {
         readStatus = true;
     } else {
@@ -56,8 +62,6 @@ function cardCreater(book, card, identify) {
         text.classList.add("card-text");
         card.appendChild(text);
     }
-    card.setAttribute("data-attribute", myLibrary.length - 1);
-    console.log(card.dataset.attribute);
     card = addBtns(card, id, identify);
     card.classList.add("card");
     bookCount++;
@@ -80,6 +84,7 @@ function addBtns(card, id, identify) {
         cardCont.removeChild(card);
         myLibrary.splice(bookIDs.indexOf(identify), 1);
         bookIDs.splice(bookIDs.indexOf(identify), 1);
+        console.table(myLibrary);
     });
     readBtn.addEventListener("click", () => {
         const text = document.getElementById(id);
