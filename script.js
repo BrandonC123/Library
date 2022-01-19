@@ -3,25 +3,36 @@ let bookIDs = [];
 let readStatus = false;
 let bookCount = 0;
 
-function Book(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = `${pages} pages`;
-    this.read = read;
+class Book {
+    constructor(title, author, pages, read) {
+        this.title = title;
+        this.author = author;
+        this.pages = `${pages} pages`;
+        this.read = read;
+    }
+    addBookToLibrary(book) {
+        myLibrary.push(book);
+    }
 }
 
-const book1 = new Book("Insert Titleaaaaaaaaaaaaaaaa", "Author", "143", "T");
+const book1 = new Book("Insert Title", "Author", "143", "T");
 
 const book2 = new Book("Sword Art Online", "Reki Kawahara", "256", "F");
 
-addBookToLibrary(book1);
-addBookToLibrary(book2);
+book1.addBookToLibrary(book1);
+book2.addBookToLibrary(book2);
+
+function displayBooks(library) {
+    for (let i = 0; i < library.length; i++) {
+        const identify = "book" + bookCount;
+        let card = document.createElement("div");
+        cardCont.appendChild(cardCreater(library[i], card, identify));
+    }
+}
+
 
 const cardCont = document.querySelector("#card-cont");
 
-function addBookToLibrary(book) {
-    myLibrary.push(book);
-}
 
 //Used for user input
 function addAndDisplay(book) {
@@ -33,13 +44,7 @@ function addAndDisplay(book) {
     cardCont.appendChild(card);
 }
 
-function displayBooks(library) {
-    for (let i = 0; i < library.length; i++) {
-        const identify = "book" + bookCount;
-        let card = document.createElement("div");
-        cardCont.appendChild(cardCreater(library[i], card, identify));
-    }
-}
+
 
 function cardCreater(book, card, identify) {
     //Unique id for read-text div
@@ -138,3 +143,4 @@ submitBtn.addEventListener("click", () => {
 });
 
 displayBooks(myLibrary);
+
