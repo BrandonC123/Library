@@ -1,9 +1,5 @@
-let myLibrary = [];
-let bookIDs = [];
-let readStatus = false;
-let bookCount = 0;
-
 class Book {
+    readStatus = false;
     constructor(title, author, pages, read) {
         this.title = title;
         this.author = author;
@@ -11,20 +7,13 @@ class Book {
         this.read = read;
     }
     addBookToLibrary(book) {
-        myLibrary.push(book);
+        display.myLibrary.push(book);
     }
 }
 
-const book1 = new Book("Insert Title", "Author", "143", "T");
-
-const book2 = new Book("Sword Art Online", "Reki Kawahara", "256", "F");
-
-book1.addBookToLibrary(book1);
-book2.addBookToLibrary(book2);
-
-//Used for user input
-
 const cardMod = (() => {
+    let bookIDs = [];
+    let bookCount = 0;
     function cardCreater(book, card, identify) {
         //Unique id for read-text div
         const id = "read-text" + bookCount;
@@ -64,8 +53,8 @@ const cardMod = (() => {
         removeBtn.addEventListener("click", () => {
             //Maintains a bookIDs array with the unique identifiers
             //to get the index to slice in myLibrary array.
-            cardCont.removeChild(card);
-            myLibrary.splice(bookIDs.indexOf(identify), 1);
+            display.cardCont.removeChild(card);
+            display.myLibrary.splice(bookIDs.indexOf(identify), 1);
             bookIDs.splice(bookIDs.indexOf(identify), 1);
         });
         readBtn.addEventListener("click", () => {
@@ -86,22 +75,25 @@ const cardMod = (() => {
     }
     return {
         cardCreater,
+        bookCount,
     };
 })();
 
 const display = (() => {
     const cardCont = document.querySelector("#card-cont");
+    let myLibrary = [];
     function displayBooks(library) {
         for (let i = 0; i < library.length; i++) {
-            const identify = "book" + bookCount;
+            const identify = "book" + cardMod.bookCount;
             let card = document.createElement("div");
-            cardCont.appendChild(cardCreater(library[i], card, identify));
+            cardCont.appendChild(cardMod.cardCreater(library[i], card, identify));
         }
     }
     
+    //Used for user input
     function addAndDisplay(book) {
         //Unique identifier for each book
-        const identify = "book" + bookCount;
+        const identify = "book" + cardMod.bookCount;
         myLibrary.push(book);
         let card = document.createElement("div");
         card = cardMod.cardCreater(book, card, identify);
@@ -145,7 +137,17 @@ const display = (() => {
     });
     return {
         displayBooks,
+        myLibrary,
+        cardCont,
     }
 })();
 
-display.displayBooks(myLibrary);
+const book1 = new Book("Insert Title", "Author", "143", "T");
+
+const book2 = new Book("Sword Art Online", "Reki Kawahara", "256", "F");
+
+book1.addBookToLibrary(book1);
+book2.addBookToLibrary(book2);
+
+display.displayBooks(display.myLibrary);
+
