@@ -1,5 +1,4 @@
 class Book {
-    readStatus = false;
     constructor(title, author, pages, read) {
         this.title = title;
         this.author = author;
