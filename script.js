@@ -10,7 +10,7 @@ class Book {
     }
 }
 
-const cardMod = (() => {
+const cardHandler = (() => {
     let bookIDs = [];
     let bookCount = 0;
     function cardCreater(book, card, identify) {
@@ -83,19 +83,21 @@ const display = (() => {
     let myLibrary = [];
     function displayBooks(library) {
         for (let i = 0; i < library.length; i++) {
-            const identify = "book" + cardMod.bookCount;
+            const identify = "book" + cardHandler.bookCount;
             let card = document.createElement("div");
-            cardCont.appendChild(cardMod.cardCreater(library[i], card, identify));
+            cardCont.appendChild(
+                cardHandler.cardCreater(library[i], card, identify)
+            );
         }
     }
-    
+
     //Used for user input
     function addAndDisplay(book) {
         //Unique identifier for each book
-        const identify = "book" + cardMod.bookCount;
+        const identify = "book" + cardHandler.bookCount;
         myLibrary.push(book);
         let card = document.createElement("div");
-        card = cardMod.cardCreater(book, card, identify);
+        card = cardHandler.cardCreater(book, card, identify);
         cardCont.appendChild(card);
     }
 
@@ -106,10 +108,7 @@ const display = (() => {
     }
 
     function closeForm() {
-        form.elements[0].value = "";
-        form.elements[1].value = "";
-        form.elements[2].value = "";
-        form.elements[3].value = "";
+        form.reset();
         document.getElementById("form").style.display = "none";
     }
 
@@ -125,20 +124,57 @@ const display = (() => {
 
     const submitBtn = document.querySelector("#submit");
     submitBtn.addEventListener("click", () => {
-        const newBook = new Book(
-            form.elements[0].value,
-            form.elements[1].value,
-            form.elements[2].value,
-            form.elements[3].value
-        );
-        addAndDisplay(newBook);
-        closeForm();
+        const bookInputs = document.querySelectorAll(".new-book-input");
+        let validForm = true;
+        bookInputs.forEach((input) => {
+            if (!input.validity.valid) {
+                formValidation.showError(input, ".error-" + input.name);
+                validForm = false;
+            }
+        });
+        if (validForm) {
+            const newBook = new Book(
+                form.elements[0].value,
+                form.elements[1].value,
+                form.elements[2].value,
+                form.elements[3].value
+            );
+            addAndDisplay(newBook);
+            closeForm();
+        }
     });
     return {
         displayBooks,
         myLibrary,
         cardCont,
+    };
+})();
+
+const formValidation = (() => {
+    const bookInputs = document.querySelectorAll(".new-book-input");
+
+    bookInputs.forEach((input) => {
+        input.addEventListener("input", function (event) {
+            if (input.validity.valid) {
+                document.querySelector(".error-" + input.name).textContent = "";
+                document
+                    .querySelector(".error-" + input.name)
+                    .classList.remove("active-error");
+            } else {
+                showError(input, ".error-" + input.name);
+            }
+        });
+    });
+    function showError(testInput, errorSpan) {
+        if (testInput.validity.valueMissing) {
+            document.querySelector(errorSpan).textContent =
+                "This field cannot be empty.";
+        }
+        document.querySelector(errorSpan).classList.add("active-error");
     }
+    return {
+        showError,
+    };
 })();
 
 const book1 = new Book("Insert Title", "Author", "143", "T");
@@ -149,4 +185,3 @@ book1.addBookToLibrary(book1);
 book2.addBookToLibrary(book2);
 
 display.displayBooks(display.myLibrary);
-
