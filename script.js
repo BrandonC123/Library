@@ -108,6 +108,11 @@ const display = (() => {
     }
 
     function closeForm() {
+        const errorSpans = document.querySelectorAll(".error");
+        errorSpans.forEach((error) => {
+            error.textContent = ""
+            error.classList.remove("active-error");
+        });
         form.reset();
         document.getElementById("form").style.display = "none";
     }

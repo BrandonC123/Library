@@ -1,14 +1,32 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     font-family: "Pushster", cursive;
 }
 
+.row {
+    display: flex;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
 .overall-container {
-    border: solid 3px #faeedc;
+    height: 100vh;
 }
 
 #title {
     font-size: 34px;
+    margin: 0;
+}
+
+.inputs {
+    gap: 20px;
 }
 
 .add-section {
@@ -19,7 +37,7 @@ body {
     gap: 10px;
     padding: 40px;
     background-image: linear-gradient(#6aa6b3, #8790ad, #6aa6b3);
-    height: 326px;
+    height: 40%;
     color: #faeedc;
 }
 
@@ -27,10 +45,17 @@ body {
     display: none;
 }
 
-.inputs {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.error {
+    width: 100%;
+    display: inline-block;
+    box-sizing: border-box;
+    border-radius: 0 0 5px 5px;
+    background-color: rgb(211, 39, 39);
+    color: white;
+}
+
+.active-error {
+    padding: 0.5em;
 }
 
 #card-cont {
@@ -42,7 +67,7 @@ body {
     background-image: url(./images/library.jpg);
     background-size: 100%;
     padding: 20px;
-    height: 500px;
+    height: 60%;
 }
 
 .card {

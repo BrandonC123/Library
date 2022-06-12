@@ -15,68 +15,72 @@
     </head>
     <body>
         <div class="overall-container">
-            <div class="add-section">
-                <div id="title">Library</div>
+            <section class="add-section">
+                <h1 id="title">Library</h1>
                 <button id="add">NEW BOOK</button>
                 <form novalidate id="form">
                     <ul>
-                        <div class="inputs">
-                            <li>
-                                <label for="title">Title:</label>
-                                <input
-                                    required
-                                    class="new-book-input"
-                                    type="text"
-                                    id="book-title"
-                                    name="book-title"
-                                />
-                                <span
-                                    class="error error-title"
-                                    aria-live="polite"
-                                ></span>
-                            </li>
-                            <li>
-                                <label for="Author">Author:</label>
-                                <input
-                                    required
-                                    class="new-book-input"
-                                    type="text"
-                                    id="author"
-                                    name="author"
-                                />
-                                <span
-                                    class="error error-author"
-                                    aria-live="polite"
-                                ></span>
-                            </li>
-                            <li>
-                                <label for="page">Page Count:</label>
-                                <input
-                                    required
-                                    class="new-book-input"
-                                    type="number"
-                                    id="page"
-                                    name="page"
-                                />
-                                <span
-                                    class="error error-page-count"
-                                    aria-live="polite"
-                                ></span>
-                            </li>
-                            <li>
-                                <label for="read">Read Status (T/F):</label>
-                                <input
-                                    required
-                                    class="new-book-input"
-                                    type="text"
-                                    id="read"
-                                    name="read"
-                                />
-                                <span
-                                    class="error error-read-status"
-                                    aria-live="polite"
-                                ></span>
-                            </li>
+                        <div class="inputs row">
+                            <div class="column">
+                                <li>
+                                    <label for="title">Title:</label>
+                                    <input
+                                        required
+                                        class="new-book-input"
+                                        type="text"
+                                        id="book-title"
+                                        name="book-title"
+                                    />
+                                    <span
+                                        class="error error-book-title"
+                                        aria-live="polite"
+                                    ></span>
+                                </li>
+                                <li>
+                                    <label for="Author">Author:</label>
+                                    <input
+                                        required
+                                        class="new-book-input"
+                                        type="text"
+                                        id="author"
+                                        name="author"
+                                    />
+                                    <span
+                                        class="error error-author"
+                                        aria-live="polite"
+                                    ></span>
+                                </li>
+                            </div>
+                            <div class="column">
+                                <li>
+                                    <label for="page">Page Count:</label>
+                                    <input
+                                        required
+                                        class="new-book-input"
+                                        type="number"
+                                        id="page"
+                                        name="page"
+                                    />
+                                    <span
+                                        class="error error-page"
+                                        aria-live="polite"
+                                    ></span>
+                                </li>
+                                <li>
+                                    <label for="read">Read Status (T/F):</label>
+                                    <input
+                                        required
+                                        class="new-book-input"
+                                        type="text"
+                                        id="read"
+                                        name="read"
+                                    />
+                                    <span
+                                        class="error error-read"
+                                        aria-live="polite"
+                                    ></span>
+                                </li>
+                            </div>
                         </div>
                     </ul>
                     <div class="form-btns">
@@ -84,7 +88,7 @@
                         <button type="button" id="cancel">X</button>
                     </div>
                 </form>
-            </div>
+            </section>
             <div id="card-cont"></div>
         </div>
         <script src="script.js"></script>
