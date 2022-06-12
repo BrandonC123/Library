@@ -18,28 +18,64 @@
             <div class="add-section">
                 <div id="title">Library</div>
                 <button id="add">NEW BOOK</button>
-                <form id="form">
+                <form novalidate id="form">
                     <ul>
                         <div class="inputs">
                             <li>
                                 <label for="title">Title:</label>
                                 <input
+                                    required
+                                    class="new-book-input"
                                     type="text"
                                     id="book-title"
                                     name="book-title"
                                 />
+                                <span
+                                    class="error error-title"
+                                    aria-live="polite"
+                                ></span>
                             </li>
                             <li>
                                 <label for="Author">Author:</label>
-                                <input type="text" id="author" name="author" />
+                                <input
+                                    required
+                                    class="new-book-input"
+                                    type="text"
+                                    id="author"
+                                    name="author"
+                                />
+                                <span
+                                    class="error error-author"
+                                    aria-live="polite"
+                                ></span>
                             </li>
                             <li>
                                 <label for="page">Page Count:</label>
-                                <input type="text" id="page" name="page" />
+                                <input
+                                    required
+                                    class="new-book-input"
+                                    type="number"
+                                    id="page"
+                                    name="page"
+                                />
+                                <span
+                                    class="error error-page-count"
+                                    aria-live="polite"
+                                ></span>
                             </li>
                             <li>
                                 <label for="read">Read Status (T/F):</label>
-                                <input type="text" id="read" name="read" />
+                                <input
+                                    required
+                                    class="new-book-input"
+                                    type="text"
+                                    id="read"
+                                    name="read"
+                                />
+                                <span
+                                    class="error error-read-status"
+                                    aria-live="polite"
+                                ></span>
                             </li>
                         </div>
                     </ul>
